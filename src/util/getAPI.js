@@ -4,7 +4,7 @@
  * @return {Json} The Json from the service
  */
 
-const getData= async (dataUrl)=>{
+const getAPI = async (dataUrl)=>{
   return fetch(dataUrl
   ,{
     headers : { 
@@ -18,4 +18,4 @@ const getData= async (dataUrl)=>{
     });
 }
 
-module.exports.getData = getData;
+module.exports.getAPI = getAPI;

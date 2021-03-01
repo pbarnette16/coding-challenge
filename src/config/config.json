@@ -1,0 +1,8 @@
+{
+    "baseURL": "https://blooming-fortress-38880.herokuapp.com/",
+    "endPoints: {
+        "bookings": "bookings/",
+        "sellers": "sellers/",
+        "products": "products/"
+    }
+}

@@ -1,7 +1,7 @@
-import { getData } from './getData';
+import { getAPI } from './getAPI';
 
 
-describe('getData function testing', () => {
+describe('getAPI function testing', () => {
     let dataReturn = {
         "size": 25,
         "updatedAt": "2021-03-01T01:47:15.110Z",
@@ -29,7 +29,7 @@ describe('getData function testing', () => {
                 json: () => Promise.resolve(dataReturn),
             })
             );
-        const data = await getData("dataURL");
+        const data = await getAPI("dataURL");
 
         expect(data).toEqual(dataReturn)
            
@@ -43,7 +43,7 @@ describe('getData function testing', () => {
             );
 ;
 
-        expect(() =>  getData("dataURL")).rejects.toEqual(
+        expect(() =>  getAPI("dataURL")).rejects.toEqual(
             expect.objectContaining({
                 "error":"Data unable to be returned." 
             })

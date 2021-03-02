@@ -1,0 +1,30 @@
+.App {
+  margin: 20px 50px;
+}
+
+.App-logo {
+  pointer-events: none;
+  margin-left: -5px;
+}
+
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App article header {
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 20px;
+  > h1 {
+    margin-bottom: 5px;
+  }
+
+}
+

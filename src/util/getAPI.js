@@ -5,17 +5,15 @@
  */
 
 const getAPI = async (dataUrl)=>{
-  return fetch(dataUrl
-  ,{
+  let response = await fetch(dataUrl ,{
     headers : { 
       'Content-Type': 'application/json',
       'Accept': 'application/json'
      }
   }
-  )
-    .then(function(response){
-      return response.json();
-    });
+  );
+    //console.log(response); // Logs the response
+    return response.json();
 }
 
 module.exports.getAPI = getAPI;

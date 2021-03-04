@@ -1,6 +1,6 @@
-const { getMetadata } = require('core-js/fn/reflect')
-const config = require('./src/config/config.json');
-const {getAPI} = require('./src/util/getAPI');
+const config = require('../config/config.json');
+const {getAPI} = require('./getAPI');
+const parseISO = require('date-fns/parseISO')
 const differenceInCalendarDays = require('date-fns/differenceInCalendarDays')
 
 /**
@@ -18,30 +18,34 @@ const differenceInCalendarDays = require('date-fns/differenceInCalendarDays')
     // of all the data
     if(!localStorage.getItem('bookings') || forceUpdate) {
         
-        [bookings, sellers, products]  = Promise.all([getAPI(baseUrl+endPoints.bookings),
+        //console.log('Get fresh data');
+        [bookings, sellers, products]  = await Promise.allSettled([getAPI(baseUrl+endPoints.bookings),
         getAPI(baseUrl+endPoints.sellers), getAPI(baseUrl+endPoints.products)])
         
         // store in local storage
-        localStorage.setItem('bookings', bookings);
-        localStorage.setItem('sellers', sellers);
-        localStorage.setItem('products', products);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+        localStorage.setItem('sellers', JSON.stringify(sellers));
+        localStorage.setItem('products', JSON.stringify(products));
     }
     else {
-        bookings = localStorage.getItem('bookings');
-        sellers = localStorage.getItem('sellers');
-        products = localStorage.getItem('products');
+        
+        bookings = JSON.parse(localStorage.getItem('bookings'));
+        sellers = JSON.parse(localStorage.getItem('sellers'));
+        products = JSON.parse(localStorage.getItem('products'));
 
         // Get the data from local storage, refresh if it is old data
-        if(differenceInCalendarDays(bookings.updatedAt, Date.now()) > 1) {
+        if(differenceInCalendarDays(parseISO(bookings.updatedAt), Date.now()) > 1) {
             bookings = getAPI(baseUrl + endPoints.bookings)
             localStorage.setItem('bookings', bookings)
         }
     }
 
-    return Promise.resolve({
+    return {
         bookings: bookings,
         sellers: sellers,
         products: products
-    })
+    }
 
  }
+
+ module.exports.getData = getData;

@@ -12,3 +12,5 @@ const parseISO = require('date-fns/parseISO')
 function compareDates(a, b) {
     return compareAsc(parseISO(a["Start Date"]), parseISO(b["Start Date"]))
 }
+
+module.exports.compareDates = compareDates;

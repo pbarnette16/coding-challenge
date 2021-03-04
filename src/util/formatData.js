@@ -10,7 +10,7 @@
      let formatedString = "";
 
      if(format === 'currency') {
-        formatedString = new Intl.NumberFormat(navigator.language, {style: 'currency', currency: 'USD'}).format(data)
+        formatedString = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(data)
      }
      else if(format === 'number') {
          formatedString = new Intl.NumberFormat(navigator.language).format(data)

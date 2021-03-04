@@ -3,21 +3,23 @@ import logo from './components/images/adslot_black.png';
 import './App.scss';
 import {getData}  from './util/getData'
 import {mergeData} from './util/mergeData'
+import displayTables from './components/displayTables/displayTables'
 
 function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [isDataFormatted, setIsDataFormatted] = useState(false)
   const [data, setData] = useState(() => {
     getData()
     .then(data => {
-      setIsDataLoaded(true)
       setData(mergeData(data))
+      setIsDataLoaded(true)
     })
   });
-
   useEffect(() => {
-    console.log('useEffect')
-    console.log(data)
-  })
+    setIsDataFormatted(true)
+  }, [isDataLoaded])
+
+  const [filter, setFilter] = useState("")
 
   return (
     <div className="App">
@@ -30,6 +32,9 @@ function App() {
         </header>
         {
           (!isDataLoaded) ? (<div className="loader">Loading...</div>) : <span></span>
+        }
+        {
+          (!isDataFormatted && isDataLoaded) ?  (<div>Formatting the data</div>) : displayTables(data, filter)
         }
       </article>
     </div>
